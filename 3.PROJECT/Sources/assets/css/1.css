@@ -22,6 +22,24 @@
       html body footer .footer-bot {
         display: flex;
         align-items: center; }
+    html body .me-form-login {
+      position: fixed;
+      z-index: 10;
+      display: none;
+      justify-content: center;
+      top: 10%;
+      left: 38%; }
+      html body .me-form-login .login-card .btn-signin {
+        background: #003478; }
+        html body .me-form-login .login-card .btn-signin:hover {
+          background: #F8825D; }
+    html body .btn-close {
+      position: absolute;
+      top: 5px;
+      right: 0px;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px; }
     html body .endl {
       display: flex;
       margin-top: 20px;
@@ -49,6 +67,8 @@
           html body .top .container .row ul li a {
             font-size: 14px;
             color: white; }
+        html body .top .container .row ul #ho_ten a {
+          color: white; }
     html body .logo-menu {
       z-index: 99;
       background-color: white;
@@ -171,12 +191,28 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box; }
+    html html body #ho_ten.dropdown {
+      margin-top: 2px; }
     html html body #header .header__wrap {
       display: flex;
       flex-direction: column; }
       html html body #header .header__wrap .header__left {
         margin-top: 20px;
         text-align: center; }
+    html html body .me-form-login {
+      position: fixed;
+      z-index: 10;
+      display: none;
+      justify-content: center;
+      top: 10%;
+      left: 11%; }
+    html html body .btn-close {
+      position: absolute;
+      top: 5px;
+      right: 0px;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px; }
     html html body footer {
       padding-top: 20px;
       padding-bottom: 20px;

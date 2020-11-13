@@ -570,7 +570,7 @@
                                         </div>
                                     </div> -->
                                     <br>
-                                    <div class="col-md-3 form-group float-right mb-0">
+                                    <div class="col-md-3 form-group float-right mb-3">
                                         <button id="btnNguyenVong" name="ok" class="btn btn-primary"> Lưu nguyện vọng</button>
                                         <!-- <button  id="btnNguyenVong" name="ok" class="btn btn-primary">Post</button> -->
                                     </div>

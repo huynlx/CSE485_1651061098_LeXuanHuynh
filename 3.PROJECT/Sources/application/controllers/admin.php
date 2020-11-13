@@ -52,12 +52,12 @@ class Admin extends CI_Controller
         $config['full_tag_close'] = '</div>';
 
         $config['first_link'] = 'First Page';
-        $config['first_tag_open'] = '<a class="firstlink" tabindex="1">';
-        $config['first_tag_close'] = '</a>';
+        // $config['first_tag_open'] = '<a class="firstlink" tabindex="1">';
+        // $config['first_tag_close'] = '</a>';
 
         $config['last_link'] = 'Last Page';
-        $config['last_tag_open'] = '<a class="lastlink">';
-        $config['last_tag_close'] = '</a>';
+        // $config['last_tag_open'] = '<a class="lastlink">...';
+        // $config['last_tag_close'] = '</a>';
 
         $config['next_link'] = 'Next Page';
         // $config['next_tag_open'] = '<a class="nextlink">';
@@ -388,7 +388,7 @@ class Admin extends CI_Controller
                 $err = $this->db->error();
                 if ($err['code'] !== 0) {
                     echo "<script>alert('Thêm không thành công !!!')</script>";
-                    echo "<script>alert('" . $manganh . "')</script>";
+                    // echo "<script>alert('" . $manganh . "')</script>";
                     $this->add_ndt();
                 } else {
                     // echo "<script>alert('Update Thành Công !!!')</script>";
@@ -505,62 +505,135 @@ class Admin extends CI_Controller
         $this->load->model("Mhsxt");
         $ma_ts = $this->Mhsxt->getByMaHsxt($id);
         // $data['ma_hsxt']=$id;
+        $data['ma_hsxt']=$id;
         $this->load->model("Mts");
         $data['ts'] = $this->Mts->getByMaTS($ma_ts);
         $this->load->model('Mnv');
-        $data['nv']=$this->Mnv->getByMahsxt($id);
+        $data['nv'] = $this->Mnv->getByMahsxt($id);
         $this->load->model('Mcsdt');
-        $data['csdt']=$this->Mcsdt->getListAll();
+        $data['csdt'] = $this->Mcsdt->getListAll();
         $this->load->model('Mndt');
-        $data['ndt']=$this->Mndt->getListAll();
+        $data['ndt'] = $this->Mndt->getListAll();
         $this->load->model('Mthm');
-        $data['thm']=$this->Mthm->getListAll();
+        $data['thm'] = $this->Mthm->getListAll();
         $this->load->model('Mfmc');
-        $data['fmc']=$this->Mfmc->getByMahsxt($id);
+        $data['fmc'] = $this->Mfmc->getByMahsxt($id);
         $this->load->view("admin/s_edit_hsxt_admin_view", $data);
     }
 
     public function pro_edit_hsxt($id)
     {
+        try {
+            $ht = isset($_POST['ht']) ? $_POST['ht'] : "";
+            $gt = isset($_POST['gt']) ? $_POST['gt'] : "Nam";
+            $ngaythangnamsinh = isset($_POST['ngaythangnamsinh']) ? $_POST['ngaythangnamsinh'] : "";
+            $noisinh = isset($_POST['noisinh']) ? $_POST['noisinh'] : "";
+            $dantoc = isset($_POST['dantoc']) ? $_POST['dantoc'] : "";
+            $socmnd = isset($_POST['socmnd']) ? $_POST['socmnd'] : "";
+            $ngaycap = isset($_POST['ngaycap']) ? $_POST['ngaycap'] : "";
+            $noicap = isset($_POST['noicap']) ? $_POST['noicap'] : "";
+            $ho_khau_tinh_thanh_pho = isset($_POST['tinhthanhpho']) ? $_POST['tinhthanhpho'] : "";
+            $ho_khau_quan_huyen = isset($_POST['quanhuyen']) ? $_POST['quanhuyen'] : "";
+            $ho_khau_xa_phuong = isset($_POST['phuongthixa']) ? $_POST['phuongthixa'] : "";
+            $ho_khau_thon_ban_duong_pho = isset($_POST['thonbanduongpho']) ? $_POST['thonbanduongpho'] : "";
+            $tinh_tp_lop_10 = isset($_POST['tinhthanhpholop10']) ? $_POST['tinhthanhpholop10'] : "";
+            $quan_huyen_lop_10 = isset($_POST['quanhuyenlop10']) ? $_POST['quanhuyenlop10'] : "";
+            $truong_lop_10 = isset($_POST['truongthptlop10']) ? $_POST['truongthptlop10'] : "";
+            $tinh_tp_lop_11 = isset($_POST['tinhthanhpholop11']) ? $_POST['tinhthanhpholop11'] : "";
+            $quan_huyen_lop_11 = isset($_POST['quanhuyenlop11']) ? $_POST['quanhuyenlop11'] : "";
+            $truong_lop_11 = isset($_POST['truongthptlop11']) ? $_POST['truongthptlop11'] : "";
+            $tinh_tp_lop_12 = isset($_POST['tinhthanhpholop12']) ? $_POST['tinhthanhpholop12'] : "";
+            $quan_huyen_lop_12 = isset($_POST['quanhuyenlop12']) ? $_POST['quanhuyenlop12'] : "";
+            $truong_lop_12 = isset($_POST['truongthptlop12']) ? $_POST['truongthptlop12'] : "";
+            $sdt_ts = isset($_POST['sdt']) ? $_POST['sdt'] : "";
+            $email_ts = isset($_POST['email']) ? $_POST['email'] : "";
+            $nam_tot_nghiep_ts = isset($_POST['namtotnghiep']) ? $_POST['namtotnghiep'] : "";
+            $khu_vuc_uu_tien = isset($_POST['khuvucuutien']) ? $_POST['khuvucuutien'] : "";
+            $doi_tuong_uu_tien = isset($_POST['doituonguutien']) ? $_POST['doituonguutien'] : "";
+            $this->load->model('Mhsxt');
+            // $ma_ts=$this->Mhsxt->getByMaHSXT($id);
+            $this->load->model("Mts");
+            $this->Mts->edit($id, $ht, $gt, $ngaythangnamsinh, $noisinh, $dantoc, $socmnd, $ngaycap, $noicap, $ho_khau_tinh_thanh_pho, $ho_khau_quan_huyen, $ho_khau_xa_phuong, $ho_khau_thon_ban_duong_pho, $tinh_tp_lop_10, $quan_huyen_lop_10, $truong_lop_10, $tinh_tp_lop_11, $quan_huyen_lop_11, $truong_lop_11, $quan_huyen_lop_12, $tinh_tp_lop_12, $truong_lop_12, $sdt_ts, $email_ts, $nam_tot_nghiep_ts, $khu_vuc_uu_tien, $doi_tuong_uu_tien);
+            $err = $this->db->error();
+            if ($err['code'] !== 0) {
+                var_dump($err['code']);
+                // do something about the error or handle the excepcion
+                echo "<script>alert('Thí sinh đã Tồn Tại !!!')</script>";
+                echo "<script>window.history.back();</script>";
+            } else {
+                // query ran OK, keep the method going
+                echo "<script>
+                         window.location.href='" . base_url() . "admin/get_list_hsxt';
+                         window.alert('Sửa thành công!!!');
+                         </script>";
+              
+                // $this->edit_thong_tin_hsxt($id);
+                // $this->add_hsxt();
+
+                // echo "<script>alert('Thí sinh đã Tồn Tại !!!')</script>";
+            }
+        } catch (Exception $e) {
+            echo "<script>alert('Update không thành công !!!')</script>";
+            echo "<script>window.history.back();</script>";
+        }
     }
 
     public function delete_hsxt($id)
     {
         $this->load->model("Mhsxt");
         $ma_ts = $this->Mhsxt->getByMaHsxt($id);
-        $this->Mhsxt->deleteById($id,$ma_ts);
+        $this->Mhsxt->deleteById($id, $ma_ts);
         echo "<script>
         window.location.href='" . base_url() . "admin/get_list_hsxt';
         window.alert('Xoá thành công!!!');
         </script>";
     }
 
-    //Thi sinh
-    public function get_list_ts()
+    public function xoa_file()
     {
+        // $ma_fmc = $this->Mfmc->getMaxMaTS()[0]["ma_ts"];
+        $ma_hsxt = $this->input->post('ma_hsxt');
+        // $name=$this->input->post('name');
+        // $ma_hsxt = $_POST['ma_hsxt'];
+        // var_dump($ma_hsxt);
+        $this->load->model("Mfmc");
+
+        // $ma_fmc=$this->Mfmc->getMfmc($ma_hsxt);
+        $mfmc = $this->Mfmc->getMfmc($ma_hsxt);
+        $this->Mfmc->delete($mfmc);
+
+
+        //lay danh sach sau khi xoa de hien ra bang lai
+        $result = $this->Mfmc->getByMaHsxt($ma_hsxt);
+        echo json_encode($result);
     }
 
-    public function get_list_ts_s($s)
+    public function pro_luu_file_minh_chung()
     {
-    }
+        $ma_hsxt = $_POST["ma_hsxt"];
+        $config['upload_path']          = './assets/img_file/';
+        $config['allowed_types']        = 'gif|jpg|jpeg|png';
+        $this->load->library('upload', $config);
 
-    public function add_ts()
-    {
-    }
+        if (!$this->upload->do_upload("file")) {
+            $status = 'error';
+            $msg = $this->upload->display_errors('', '');
+        } else {
+            $data = $this->upload->data();
+            //var_dump($data);
+            //$data['file_name']
+            $status = "success";
+            $msg = "File successfully uploaded";
 
-    public function pro_add_ts()
-    {
-    }
+            $name = $data['file_name'];
+            $size = $data['file_size'];
 
-    public function edit_ts($id)
-    {
-    }
+            // var_dump($name);
+            // var_dump($size);
 
-    public function pro_edit_ts($id)
-    {
-    }
-
-    public function delete_ts($id)
-    {
+            $this->load->model("Mfmc");
+            $this->Mfmc->add($ma_hsxt, "...", $name, $size);
+        }
+        echo json_encode(array('status' => $status, 'msg' => $msg));
     }
 }

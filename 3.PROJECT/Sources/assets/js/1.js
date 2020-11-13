@@ -499,7 +499,7 @@ $(document).ready(function() {
                     //     }));
                     //console.log(data);
                     // ĐỌc dữ liệu
-                    $("#form_file_minh_chung").slideToggle(300);
+                    $("#form_file_minh_chung").slideDown(300);
                 }
             });
         }
@@ -544,7 +544,7 @@ $(document).ready(function() {
             processData: false,
             contentType: false,
             success: function(data) {
-                alert("ok");
+                // alert("ok");
                 //console.log(data);
                 $.each($.parseJSON(data), function(key, value) {
                     //console.log(key + ": " + value);
@@ -620,6 +620,20 @@ $(document).ready(function() {
             });
         }
     }
+
+
+
+    // login
+
+    // $('.me-form-login').hide();
+
+    $('.btn-close').click(function() {
+        $(".me-form-login").hide();
+    })
+
+    $(".btnDangNhap").click(function() {
+        $(".me-form-login").toggle();
+    });
 
 
 

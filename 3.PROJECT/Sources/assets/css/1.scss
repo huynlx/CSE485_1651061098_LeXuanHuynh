@@ -39,6 +39,35 @@ html {
                     align-items: center;
                 }
             }
+            //login
+            .me-form-login {
+                position: fixed;
+                z-index: 10;
+                display: none;
+                justify-content: center;
+                top: 10%;
+                left: 38%;
+                .login-card {
+                    .btn-signin {
+                        // &:hover {
+                        background: #003478;
+                        // background-color: red;
+                        &:hover {
+                            background: #F8825D;
+                        }
+                        // }
+                    }
+                }
+            }
+            .btn-close {
+                position: absolute;
+                top: 5px;
+                right: 0px;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+            }
+            //
             .endl {
                 display: flex;
                 margin-top: 20px;
@@ -87,8 +116,30 @@ html {
                                     img {}
                                 }
                             }
+                            #ho_ten {
+                                a {
+                                    color: white;
+                                }
+                            }
                         }
                     }
+                    // #top {
+                    //     // display: flex;
+                    //     // justify-content: center;
+                    //     // align-items: center;
+                    //     // margin: 0;
+                    //     ul {
+                    //         li {
+                    //             list-style: none;
+                    //             a {
+                    //                 color: white;
+                    //             }
+                    //         }
+                    //         // .mm {
+                    //         //     display: none;
+                    //         // }
+                    //     }
+                    // }
                 }
             }
             .logo-menu {

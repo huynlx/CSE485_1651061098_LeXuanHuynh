@@ -5,6 +5,9 @@
          padding: 0;
          box-sizing: border-box;
          body {
+             #ho_ten.dropdown {
+                 margin-top: 2px;
+             }
              #header {
                  //  margin-top: 30px;
                  .header__wrap {
@@ -15,6 +18,22 @@
                      display: flex;
                      flex-direction: column;
                  }
+             }
+             .me-form-login {
+                 position: fixed;
+                 z-index: 10;
+                 display: none;
+                 justify-content: center;
+                 top: 10%;
+                 left: 11%;
+             }
+             .btn-close {
+                 position: absolute;
+                 top: 5px;
+                 right: 0px;
+                 border-radius: 50%;
+                 width: 30px;
+                 height: 30px;
              }
              footer {
                  padding-top: 20px;

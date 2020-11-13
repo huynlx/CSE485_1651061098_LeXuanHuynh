@@ -1,6 +1,53 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+function my_error_handler($errno, $errstr, $errfile, $errline)
+{
+    if (!(error_reporting() & $errno))
+    {
+        // This error code is not included in error_reporting
+        return;
+    }
+    log_message('error', "$errstr @$errfile::$errline($errno)" );
+    throw new ErrorException( $errstr, $errno, 0, $errfile, $errline );
+}
+set_error_handler("my_error_handler");
 
+function my_exception_handler($exception)
+{
+    echo '<pre>';
+    print_r($exception);
+    echo '</pre>';
+    header( "HTTP/1.0 500 Internal Server Error" );
+}
+set_exception_handler("my_exception_handler");
+
+function my_fatal_handler()
+{
+    $errfile = "unknown file";
+    $errstr  = "Fatal error";
+    $errno   = E_CORE_ERROR;
+    $errline = 0;
+    $error = error_get_last();
+    if ( $error !== NULL )
+    {
+        echo '<pre>';
+        print_r($error);
+        echo '</pre>';
+        header( "HTTP/1.0 500 Internal Server Error" );
+    }
+}
+register_shutdown_function("my_fatal_handler");
+
+function my_assert_handler($file, $line, $code)
+{
+    log_message('debug', "assertion failed @$file::$line($code)" );
+    throw new Exception( "assertion failed @$file::$line($code)" );
+}
+assert_options(ASSERT_ACTIVE,     1);
+assert_options(ASSERT_WARNING,    0);
+assert_options(ASSERT_BAIL,       0);
+assert_options(ASSERT_QUIET_EVAL, 0);
+assert_options(ASSERT_CALLBACK, 'my_assert_handler');
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -358,7 +405,7 @@ $config['encryption_key'] = '';
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = NULL;
+$config['sess_save_path'] = __DIR__.'/session';
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;

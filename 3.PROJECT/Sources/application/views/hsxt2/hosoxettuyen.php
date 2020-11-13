@@ -579,7 +579,7 @@
                                     </div>
                                     <table class="table table-bordered table-hover" style="background-color:white" ng-show="item.candidateAttachments.length>0">
                                         <tr style="background-color: bisque;">
-                                            <th>TT</th>
+                                            <!-- <th>TT</th> -->
                                             <th>Mô tả</th>
                                             <th>Tên file</th>
                                             <th>Dung lượng</th>
@@ -608,7 +608,7 @@
 
                                                 <tr class="w3-animate-left">
 
-                                                    <td><?php echo $row['ma_file_minh_chung']; ?></td>
+                                                    <!-- <td><?php echo $row['ma_file_minh_chung']; ?></td> -->
                                                     <td><?php echo $row['mo_ta']; ?></td>
                                                     <td><?php echo $row['ten_file']; ?></td>
                                                     <td><?php echo $row['dung_luong']; ?></td>

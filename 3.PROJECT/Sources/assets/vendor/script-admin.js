@@ -462,7 +462,7 @@ $(document).ready(function() {
                         console.log("name: " + fileToUpLoad["name"]);
                         console.log("size: " + fileToUpLoad["size"] + " byte");
 
-                        $(form_minh_chung).append('<tr><td>' + countXM++ + '</td><td><input type="text" max="100" class="form-control" ng-model="file.FileDescription" placeholder="Mô tả"></td><td>' + fileToUpLoad["name"] + '</td><td>' + fileToUpLoad["size"] + 'byte</td><td><a href="" class="text-red" title="Xóa file"><i class="fa fa-trash-o"></i></a></td></tr>');
+                        $(form_minh_chung).append('<tr id="file"><td class="text-center "><input type="text" max="100" class="form-control" ng-model="file.FileDescription" placeholder="..."></td><td class="text-center ">' + fileToUpLoad["name"] + '</td><td class="text-center ">' + fileToUpLoad["size"] + ' byte</td><td class="text-center "><button class="btn bg-danger" onclick=ccc()  id="del" >Xoá</button></td></tr>');
                     }
 
 
@@ -473,7 +473,103 @@ $(document).ready(function() {
             }
         });
     });
+
+
+    $("#del").click(function ccc() {
+        // console.log(name);
+        if (confirm("Are you sure delete?")) {
+            // var inputFile = $("input[name=file]");
+            // var fileToUpLoad = inputFile[0].files[0];
+            // var name = fileToUpLoad["name"];
+
+            var countXM2 = 1;
+            var ma_hsxt = $("#ma_hsxt").val();
+            // console.log($(this).data("value"));
+            // alert(ma_hsxt);
+            var url = base_url + "/gt1/Sources/admin/xoa_file";
+            // window.location.href = 'delete.php?id=' + id;
+            // txt = "You pressed OK!";
+            $.ajax({
+                type: "POST",
+                url: '' + url + '',
+                data: { ma_hsxt: ma_hsxt },
+                datatype: 'json',
+                success: function(data) {
+                    // alert("ok");
+                    //console.log(data);
+                    $("#form_minh_chung tr#file").empty();
+                    $.each($.parseJSON(data), function(key, value) {
+
+                        console.log(key + ": " + value);
+                        // console.log(key);
+                        // if (key == "status" && value == "success") {
+                        //     console.log("Fi le successfully uploaded");
+
+                        //     //console.log(fileToUpLoad);
+                        //     console.log("name: " + fileToUpLoad["name"]);
+                        //     console.log("size: " + fileToUpLoad["size"] + " byte");
+
+                        $(form_minh_chung).append('<tr id="file"><td class="text-center "><input type="text" max="100" class="form-control" ng-model="file.FileDescription" placeholder="..."></td><td class="text-center ">' + value["ten_file"] + '</td><td class="text-center ">' + value["dung_luong"] + ' byte</td><td class="text-center "><button class="btn bg-danger" onclick=ccc() id="ccc" >Xoá</button></td></tr>');
+                        // }
+                        countXM2++;
+
+
+                        // Mở nút hoàn thành
+                        // $("#btnHoanThanhHS").show();
+                    });
+                }
+            });
+        }
+    });
+    ccc = function() {
+        // console.log(name);
+        if (confirm("Are you sure delete?")) {
+            // var inputFile = $("input[name=file]");
+            // var fileToUpLoad = inputFile[0].files[0];
+            // var name = fileToUpLoad["name"];
+
+            var countXM2 = 1;
+            var ma_hsxt = $("#ma_hsxt").val();
+            // console.log($(this).data("value"));
+            // alert(ma_hsxt);
+            var url = base_url + "/gt1/Sources/admin/xoa_file";
+            // window.location.href = 'delete.php?id=' + id;
+            // txt = "You pressed OK!";
+            $.ajax({
+                type: "POST",
+                url: '' + url + '',
+                data: { ma_hsxt: ma_hsxt },
+                datatype: 'json',
+                success: function(data) {
+                    // alert("ok");
+                    //console.log(data);
+                    $("#form_minh_chung tr#file").empty();
+                    $.each($.parseJSON(data), function(key, value) {
+
+                        console.log(key + ": " + value);
+                        // console.log(key);
+                        // if (key == "status" && value == "success") {
+                        //     console.log("Fi le successfully uploaded");
+
+                        //     //console.log(fileToUpLoad);
+                        //     console.log("name: " + fileToUpLoad["name"]);
+                        //     console.log("size: " + fileToUpLoad["size"] + " byte");
+
+                        $(form_minh_chung).append('<tr id="file"><td class="text-center "><input type="text" max="100" class="form-control" ng-model="file.FileDescription" placeholder="..."></td><td class="text-center ">' + value["ten_file"] + '</td><td class="text-center ">' + value["dung_luong"] + ' byte</td><td class="text-center "><button class="btn bg-danger" onclick=ccc() id="ccc" >Xoá</button></td></tr>');
+                        // }
+                        countXM2++;
+
+
+                        // Mở nút hoàn thành
+                        // $("#btnHoanThanhHS").show();
+                    });
+                }
+            });
+        }
+
+    }
 });
+
 
 
 // var newbase_url=base_url+'/gt1/Sources/assets/json/response.json';

@@ -82,13 +82,8 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="mb-4">
-                        <h2 style="font-size: 20px;
-    color: #fff;
-    background-color: #003478;
-    padding: 10px;
-    /* border-radius: 10px; */
-    text-align: start;
-    /* max-width:200px;">Tin tuyển sinh 2020</h2>
+                        <h2 style="font-size: 20px;color: #fff;background-color: #003478;padding: 10px;text-align: start;">
+                            Tin tuyển sinh 2020</h2> 
                     </div>
                     <ul>
 
@@ -128,18 +123,10 @@
                 </div>
                 <div class="col-md-4">
                     <div class="tvts text-center">
-                        <h2 style="font-size: 20px;
-    color: #fff;
-    background-color: #003478;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;" class=""><i class="fas fa-exclamation-circle fa-1x mr-2"></i> Thông tin giới thiệu trường Đại học Thuỷ Lợi</h2>
-                        <h2 style="font-size: 20px;
-    color: #fff;
-    background-color: #003478;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;" class="">Thông tin hoạt động</h2>
+                        <h2 style="font-size: 20px;color: #fff;background-color: #003478;padding: 10px;border-radius: 10px;text-align: center;" class="">
+                            <i class="fas fa-exclamation-circle fa-1x mr-2"></i> Thông tin giới thiệu trường Đại học Thuỷ Lợi</h2>
+                        <h2 style="font-size: 20px;color: #fff;background-color: #003478;padding: 10px;border-radius: 10px;text-align: center;" class="">
+                            Thông tin hoạt động</h2>
                         <div class="content ">
                             <ul>
 
@@ -160,12 +147,8 @@
                                 </li>
                             </ul>
                         </div>
-                        <h2 style="font-size: 20px;
-    color: #fff;
-    background-color: #003478;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;" class="">Thông tin ngành tuyển sinh</h2>
+                        <h2 style="font-size: 20px;color: #fff;background-color: #003478;padding: 10px;border-radius: 10px;text-align: center;" class="">
+                            Thông tin ngành tuyển sinh</h2>
                         <div class="content ">
                             <ul>
 
@@ -199,13 +182,8 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="mb-4">
-                        <h2 style="font-size: 20px;
-color: #fff;
-background-color: #003478;
-padding: 10px;
-/* border-radius: 10px; */
-text-align: start;
-/* max-width:200px;">Các tin tức khác</h2>
+                        <h2 style="font-size: 20px;color: #fff;background-color: #003478;padding: 10px;text-align: start;">
+                            Các tin tức khác</h2>
                     </div>
                     <ul>
 
@@ -244,12 +222,8 @@ text-align: start;
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h2 style="font-size: 20px;
-    color: #fff;
-    background-color: #003478;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;" class="">Website khoa viện</h2>
+                    <h2 style="font-size: 20px;color: #fff;background-color: #003478;padding: 10px;border-radius: 10px;text-align: center;" class="">
+                        Website khoa viện</h2>
                     <div class="content ">
                         <ul>
 
@@ -310,9 +284,10 @@ text-align: start;
             <div class="col-md-4"></div>
         </div>
     </div>
-    </div>
+    <!-- </div> -->
 
     <div id="back-to-top">
         <i class="fas fa-chevron-up"></i>
     </div>
+
 </main>

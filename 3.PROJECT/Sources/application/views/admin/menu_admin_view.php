@@ -14,7 +14,8 @@
           <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2b6848f5-5c1c-4b1f-a20c-ae0adc0bcb83/dbdz1xh-59c681d4-a504-4dc2-8e3a-46b37f461f69.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvMmI2ODQ4ZjUtNWMxYy00YjFmLWEyMGMtYWUwYWRjMGJjYjgzXC9kYmR6MXhoLTU5YzY4MWQ0LWE1MDQtNGRjMi04ZTNhLTQ2YjM3ZjQ2MWY2OS5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.OzZyciiy2qiPgAacEyM8Q1UTo5qucG9ZP1I2rCpsjKA" class="img-circle elevation-3" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Lê Xuân Huynh</a>
+          <!-- <a href="#" class="d-block">Lê Xuân Huynh</a> -->
+          <a href="#" class="d-block"><?php echo $this->session->userdata("ho_ten_tk") ?></a>
         </div>
       </div>
 
@@ -31,7 +32,7 @@
             </a>
           </li>
            <?php
-            if ($this->session->userdata("cap_do") == 0){
+            if ($this->session->userdata("cap_do")==1){
                 ?>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -169,7 +170,7 @@
           <!-- log out -->
           <li class="nav-item h
           as-treeview">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url() ?>home/logout" class="nav-link">
               <i class="nav-icon fa fa-power-off"></i>
               <p>
                 Đăng xuất

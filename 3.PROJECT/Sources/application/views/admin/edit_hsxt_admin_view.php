@@ -9,8 +9,8 @@
                 <div class="col-md-12 add-dm">
                     <h2 class="text-center">Sửa Hồ Sơ Xét Tuyển</h2>
                 </div>
-                <form action=<?php echo base_url() . "admin/pro_add_hsxt" ?> style="width: 100%;padding:0px 50px;">
-                    <input type="hidden" id="ma_hsxt" name="ma_hsxt" value="<?php echo $ma_hsxt["ma_hsxt"]; ?>">
+                <form method="post" action="<?php echo base_url();?>admin/pro_edit_hsxt/<?php echo $ts['ma_ts']; ?>" style="width: 100%;padding:0px 50px;">
+                    <input type="hidden" id="ma_hsxt" name="ma_hsxt" value="<?php echo $ma_hsxt; ?>">
                     <div class="form ">
                         <div class="row">
                             <div class="col-md-9">
@@ -106,9 +106,10 @@
                                 <div class="form-group">
                                     <label for="" class="title__ip">Xã/phường:</label>
                                     <!-- <input type="text" class="form-control" name="phuongthixa" id="" value="<?php echo $ts['ho_khau_xa_phuong']; ?>"> -->
-                                    <select id="selxaphuongcsdt" name="xaphuong" class="form-control">
+                                    <select id="selxaphuongcsdt" name="phuongthixa" class="form-control">
                                         <option value="<?php echo $ts['ho_khau_xa_phuong']; ?>" selected><?php echo $ts['ho_khau_xa_phuong']; ?></option>
                                     </select>
+                                 
                                 </div>
                             </div>
                         </div>
@@ -256,7 +257,7 @@
                                             <option value="">2020</option>
                                             <option value="">2021</option>
                                         </select> -->
-                                    <input type="text" class="form-control" id="" placeholder="Năm tốt nghiệp" value="<?php echo $ts['nam_tot_nghiep_ts']; ?>">
+                                    <input type="text" class="form-control" id="" name="namtotnghiep" placeholder="Năm tốt nghiệp" value="<?php echo $ts['nam_tot_nghiep_ts']; ?>">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -336,7 +337,7 @@
 
                                             <th>Tổ hợp xét tuyển</th>
                                             <th>Trạng thái</th>
-                                            <th>#</th>
+                                            <!-- <th>#</th> -->
                                         </tr>
                                         <!-- <tr ng-repeat="nv in item.aspirationDtos">
 
@@ -363,7 +364,7 @@
                                                     <td> <?php echo $row['ma_ndt'] ?></td>
                                                     <td> <?php echo $row['ma_thm'] ?></td>
                                                     <td> <?php echo $row['trang_thai'] ?></td>
-                                                    <td><button onclick="ccc()" ;>Xoá</button></td>
+                                                    <!-- <td><button onclick="ccc()" ;>Xoá</button></td> -->
 
                                                 </tr>
                                             <?php } ?>
@@ -490,7 +491,7 @@
                                         <label><i class="fa fa-check" aria-hidden="true"></i> Danh mục file minh chứng </label>
                                     </div>
                                     <table class="table table-bordered table-hover" style="background-color:white" ng-show="item.candidateAttachments.length>0" id="form_minh_chung">
-                                        <tr style="background-color: bisque;">
+                                        <tr style="background-color: bisque;" >
                                             <!-- <th>TT</th> -->
                                             <th id="mota">Mô tả</th>
                                             <th>Tên file</th>
@@ -510,11 +511,11 @@
             </tr> -->
                                         <tbody>
                                             <?php foreach ($fmc as $row) { ?>
-                                                <tr>
+                                                <tr id="file">
                                                     <td class="text-center"><?php echo $row['mo_ta'] ?></td>
                                                     <td class="text-start"><?php echo $row['ten_file'] ?></td>
                                                     <td class="text-center"><?php echo $row['dung_luong'] ?></td>
-                                                    <td class="text-center"><button onclick="ccc()" ;>Xoá</button></td>
+                                                    <td class="text-center"><button class="btn btn-danger" id="del">Xoá</button></td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -561,7 +562,7 @@
                                         <div class="col-sm-4 col-12 pull-right" ng-if="item.ProgressStep>=3">
                                             <!--ng-if="item.ProgressStep>=3">-->
                                             <!--ng-disabled="item.ProgressStep==4"-->
-                                            <a class="btn btn-block btn-primary btn-lg" id="btnHoanThanhHS" onclick="return confirm('Bạn có muốn hoàn thành hồ sơ không?');" href="<?php echo base_url(); ?>admin/hoan_thanh_ho_so/<?php echo $ma_hsxt["ma_hsxt"]; ?>/<?php echo str_replace("@", "-", $ts['email_ts']); ?>">
+                                            <a class="btn btn-block btn-primary btn-lg" id="btnHoanThanhHS" onclick="return confirm('Bạn có muốn hoàn thành hồ sơ không?');" href="<?php echo base_url(); ?>admin/get_list_hsxt">
                                                 <i class="fa fa-check" aria-hidden="true"></i> Hoàn thành chỉnh sửa hồ sơ
                                             </a>
                                         </div>

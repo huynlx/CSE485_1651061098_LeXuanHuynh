@@ -327,7 +327,7 @@
                             <a href=""><img src="<?php echo base_url(); ?>/assets//images/images (1).png" alt="" style="width: 24px;height: 17px;"></a>
                             <a href=""><img src="<?php echo base_url(); ?>/assets//images/images.png" alt="" style="width: 24px;height: 17px;"></a>
                         </div>
-                        <li><a href="#">Trang chủ</a></li>
+                        <li><a href="<?php echo base_url(); ?>">Trang chủ</a></li>
                         <li class="drop" style="display: block;">
                             <div class="dropdown">
                                 <a class="dropdown-toggle" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

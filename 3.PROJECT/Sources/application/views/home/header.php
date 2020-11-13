@@ -17,12 +17,70 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/footer.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/vendor/comon.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/vendor/reset.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/trelyco-login-vertical-horizontal.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/trelyco-login-vertical-horizontal1.css">
     <!-- <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/vendor/Responsive.css"> -->
 
 
 
 
     <style>
+        .process .list_process li.active:nth-child(2):after {
+            background: #3aac5d;
+            content: '';
+            height: 5px;
+            left: -50%;
+            position: absolute;
+            top: 15px;
+            width: 100%;
+            z-index: -1;
+
+        }
+
+        .dropdown#ho_ten {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        #ho_ten .dropdown-content {
+            display: none;
+            position: absolute;
+            width: 120px;
+            box-shadow: 0px 3px 7px 0px #ccc;
+            z-index: 3;
+            left: -2%;
+            padding: 0;
+            color: #000;
+            background: #fff;
+            top: calc(100%);
+        }
+
+        #ho_ten .dropdown-content a {
+            color: black !important;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px !important;
+        }
+
+        #ho_ten .dropdown-content a i {
+            margin-right: 5px;
+        }
+
+        #ho_ten .dropdown-content a:hover {
+            background-color: #f1f1f1
+        }
+
+        #ho_ten.dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        #ho_ten.dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+
         /* .owl-prev i,
         .owl-next i {
             transform: scale(1, 6);
@@ -71,18 +129,20 @@
 
         }
 
-        #main_home li{
+        #main_home li {
             margin: 10px 0;
         }
-        #main_home ul{
+
+        #main_home ul {
             padding: 0 10px;
         }
-        #main_home li b:hover{
-            color:red;
+
+        #main_home li b:hover {
+            color: red;
         }
 
-        b{
-            color:#064a75;
+        b {
+            color: #064a75;
         }
 
         .content2 a:hover {
@@ -303,22 +363,57 @@
                 <div class="col-md-8 col-sm-6 col-6 p-0">
                     <ul style="display:flex;margin-bottom: 0;" class="menu">
                         <li class="mm">
-                            <a href=""><i class="fas fa-home"></i> Home </a>
+                            <a href="<?php echo base_url() ?>"><i class="fas fa-home"></i> Home </a>
 
                         </li>
                         <li style="color: white;" class="mm">|</li>
-                        <li class="m">
+
+                        <!-- Nếu đã đăng nhập là Admin (hoặc NV) -->
+                        <?php if ($this->session->userdata("CheckLogin")) { ?>
+                            <li class="" role="presentation">
+                                <a class="" href="<?php echo base_url(); ?>index.php/admin">
+                                    <i class="fas fa-igloo"></i>
+                                    Admin
+                                </a>
+                            </li>
+                            <li style="color: white;">|</li>
+                        <?php } ?>
+
+
+                        <!-- Nếu đã đăng nhập -->
+                        <?php if ($this->session->userdata("CheckLogin")) { ?>
+                            <div class="dropdown" id="ho_ten">
+                                <a class="" style="color:white;font-size:14px;"><i class="fa fa-user mr-2"></i><?php echo $this->session->userdata('ho_ten_tk'); ?></a>
+                                <div class="dropdown-content">
+                                    <a href="<?php echo base_url() . "index.php/home/ttcn/" . $this->session->userdata("id_tk"); ?>"><i class="fa fa-cogs"></i>Cài đặt</a>
+                                    <a onclick="return confirm('Bạn có muốn đăng xuất không?');" href="<?php echo base_url(); ?>index.php/home/logout"><i class="fa fa-power-off"></i>Đăng xuất</a>
+                                </div>
+                            </div>
+                        <?php } else { ?>
+                            <!-- Nếu chưa đăng nhập -->
+                            <li class="">
+                                <a class="btnDangNhap"><i class="fas fa-phone"></i> Login</a>
+                            </li>
+                            <li style="color: white;">|</li>
+                            <li class="">
+                                <a href="<?php echo base_url(); ?>home/register">
+                                    <i class="fas fa-users"></i> Register
+                                </a>
+                            </li>
+                        <?php } ?>
+
+
+                        <!-- <li class="m">
                             <a href="">
                                 <i class="fas fa-phone"></i> Login
                             </a>
-                        </li>
-                        <li style="color: white;">|</li>
-                        <li class="m">
+                        </li> -->
+                        <!-- <li style="color: white;">|</li> -->
+                        <!-- <li class="m">
                             <a href="">
                                 <i class="fas fa-users"></i> Register
                             </a>
-
-                        </li>
+                        </li> -->
                         <li style="color: white;" class="mm">|</li>
                         <li class="mm">
                             <a href="">
@@ -372,7 +467,7 @@
                             <a href=""><img src="<?php echo base_url(); ?>/assets//images/images (1).png" alt="" style="width: 24px;height: 17px;"></a>
                             <a href=""><img src="<?php echo base_url(); ?>/assets//images/images.png" alt="" style="width: 24px;height: 17px;"></a>
                         </div>
-                        <li><a href="#">Trang chủ</a></li>
+                        <li><a href="<?php echo base_url(); ?>">Trang chủ</a></li>
                         <li class="drop" style="display: block;">
                             <div class="dropdown">
                                 <a class="dropdown-toggle" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

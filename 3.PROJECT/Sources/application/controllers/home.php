@@ -250,7 +250,6 @@ class Home extends CI_Controller
         $this->email->from("huynhlx4@gmail.com", "Ban tuyển sinh Đại học Thủy Lợi");
         $this->email->subject("Hồ sơ xét tuyển học bạ của bạn");
 
-        $mes = base_url() . "home/hosoxettuyen/$ma_hsxt";
 
         $message = 'Bạn đã hoàn thành hồ sơ. <br/>';
         $message .= 'Mã tra cứu của bạn là :';
@@ -263,8 +262,8 @@ class Home extends CI_Controller
         $this->email->message($message);
 
         // Tạo QR Code
+        $mes = base_url() . "home/hosoxettuyen/$ma_hsxt";
         $this->load->library('ciqrcode');
-
 
         $params['data'] = $mes;
         $params['level'] = 'H';
@@ -338,12 +337,10 @@ class Home extends CI_Controller
         $rs = trim($decode, $key);
 
         $rs = (int)$rs;
-        if(is_int($rs)==1)
-        {
-        $this->hosoxettuyen($rs);
-        } else
-        {
-          echo "<script>alert('Ngu')</script>";
+        if (is_int($rs) == 1) {
+            $this->hosoxettuyen($rs);
+        } else {
+            echo "<script>alert('Ngu')</script>";
         }
         // $this->hosoxettuyen($rs);
         //$data['ma_hsxt']=$s;
@@ -360,21 +357,177 @@ class Home extends CI_Controller
         // $this->load->view("admin/get_list_bv_admin_view", $data);
     }
 
-    public function xoa_file(){
+    public function xoa_file()
+    {
         // $ma_fmc = $this->Mfmc->getMaxMaTS()[0]["ma_ts"];
-        $ma_hsxt=$this->input->post('ma_hsxt');
+        $ma_hsxt = $this->input->post('ma_hsxt');
         // $name=$this->input->post('name');
         // $ma_hsxt = $_POST['ma_hsxt'];
         // var_dump($ma_hsxt);
         $this->load->model("Mfmc");
 
         // $ma_fmc=$this->Mfmc->getMfmc($ma_hsxt);
-        $mfmc=$this->Mfmc->getMfmc($ma_hsxt);
+        $mfmc = $this->Mfmc->getMfmc($ma_hsxt);
         $this->Mfmc->delete($mfmc);
 
 
         //lay danh sach sau khi xoa de hien ra bang lai
-        $result=$this->Mfmc->getByMaHsxt($ma_hsxt);
+        $result = $this->Mfmc->getByMaHsxt($ma_hsxt);
         echo json_encode($result);
+    }
+
+    //Login
+    public function checkLogin()
+    {
+        $tk = isset($_POST['tk']) ? $_POST['tk'] : "";
+        $mk = isset($_POST['mk']) ? $_POST['mk'] : "";
+        $this->load->model("Muser");
+        $cap_do=$this->Muser->level($tk,$mk);
+        if ($this->Muser->checkLogin($tk, $mk) && $tk != "" && $mk != "" && $cap_do==1) {
+            //Đăng Nhập Thành Công
+            $this->session->set_userdata("CheckLogin", true);
+            $data['infLogin'] = $this->Muser->infLogin($tk, $mk);
+            $this->session->set_userdata($data['infLogin']);
+            echo "<script>alert('Đăng nhập thành công !!!');</script>";
+            // redirect(base_url() . "index.php/admin");
+            $this->index();
+        } else {
+            //Đăng Nhập Thất Bại
+            echo "<script>alert('Tài Khoản Hoặc Mật Khẩu Không Đúng !!!');</script>";
+            $this->index();
+        }
+    }
+
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        redirect(base_url());
+    }
+
+    public function ttcn($id_tk)
+    {
+        $this->load->model('Muser');
+        $data['user'] = $this->Muser->getById($id_tk);
+        $this->load->view('admin/s_ttcn_admin_view', $data);
+    }
+
+    public function pro_ttcn($id)
+    {
+        //Kiểm tra bằng form validation
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('mk', 'Mật Khẩu', 'required');
+        $this->form_validation->set_rules('gt', 'Giới Tính', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        $this->form_validation->set_rules('sdt', 'Số Điện Thoại', 'numeric');
+        if ($this->form_validation->run() == FALSE) {
+            $this->ttcn($id);
+        } else {
+            $mk = isset($_POST['mk']) ? $_POST['mk'] : "";
+            $ht = isset($_POST['ht']) ? $_POST['ht'] : "";
+            $gt = isset($_POST['gt']) ? $_POST['gt'] : "Nam";
+            $email = isset($_POST['email']) ? $_POST['email'] : "";
+            $ns = isset($_POST['ns']) ? $_POST['ns'] : "";
+            $dc = isset($_POST['dc']) ? $_POST['dc'] : "";
+            $sdt = isset($_POST['sdt']) ? $_POST['sdt'] : "";
+            $this->load->model("Muser");
+            $this->Muser->edit($id, $mk, $ht, $gt, $email, $ns, $dc, $sdt);
+            $this->ttcn($id);
+        }
+    }
+
+    public function register($x = "")
+    {
+        $data['err'] = $x;
+        $this->load->view('register/index', $data);
+    }
+
+    public function pro_register()
+    {
+        //Kiểm tra bằng form validation
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('name', 'Họ tên', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        $this->form_validation->set_rules('birthday', 'Ngày sinh', 'required');
+        $this->form_validation->set_rules('gt', 'Giới tính', 'required');
+        $this->form_validation->set_rules('address', 'Địa chỉ', 'required');
+        $this->form_validation->set_rules('phone', 'Số điện thoại', 'required');
+        $this->form_validation->set_rules('user', 'Username', 'required');
+        $this->form_validation->set_rules('pw', 'Password', 'required');
+        $this->form_validation->set_rules('cpw', 'Confirm Password', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->register();
+        } else {
+            $name = isset($_POST['name']) ? $_POST['name'] : "";
+            $email = isset($_POST['email']) ? $_POST['email'] : "";
+            $birthday = isset($_POST['birthday']) ? $_POST['birthday'] : "Nam";
+            $gt = isset($_POST['gt']) ? $_POST['gt'] : "";
+            $address = isset($_POST['address']) ? $_POST['address'] : "";
+            $phone = isset($_POST['phone']) ? $_POST['phone'] : "";
+            $user = isset($_POST['user']) ? $_POST['user'] : "";
+            $pw = isset($_POST['pw']) ? $_POST['pw'] : "";
+            $cpw = isset($_POST['cpw']) ? $_POST['cpw'] : "";
+            if ($pw !== $cpw) {
+                $error = "Hai mật khẩu không khớp nhau !";
+                $this->register($error);
+            } else {
+                try {
+                    $this->load->model("Muser");
+                    $this->Muser->add($user, $pw, $name, $gt, $email, $birthday, $address, $phone);
+                    $err = $this->db->error();
+                    if ($err['code'] !== 0) {
+                        echo "<script>alert('Tài Khoản Đã Tồn Tại !!!')</script>";
+                        // $this->register();
+                    } else {
+                        // echo $err['code'];
+                        $id=$this->Muser->getRow();
+                        $this->confirm($email,$id);
+                    }
+                } catch (Exception $e) {
+                    echo "<script>alert('Tài Khoản Đã Tồn Tại !!!')</script>";
+                    $this->register();
+                }
+            }
+        }
+    }
+
+    public function confirm($mail,$id)
+    {
+        $config = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'huynhlx4@gmail.com',
+            'smtp_pass' => 'huynhzip3',
+            'mailtype' => 'html'
+        );
+
+        $activation_code = substr(md5(uniqid(rand(), true)), 16, 16);
+
+        //$mail = base64_decode($mail);
+        $mail = str_replace("-", "@", $mail);
+        $this->load->library('email', $config);
+        $this->email->set_newline("\r\n");
+
+        $this->email->to("$mail");
+
+        $this->email->from("huynhlx4@gmail.com", "Xác nhận tài khoản");
+        $this->email->subject("Xác nhận tài khoản");
+
+
+        $message = 'Bạn đã hoàn thành việc đăng ký tài khoản. <br/>';
+        $message .= 'Bấm vào link để xác nhận:';
+        $message .= '<a href="http://localhost/gt1/Sources/home/active?code=' . $id . '">Click here</a>';
+        $message .= ".";
+
+        $this->email->message($message);
+        $this->email->send();
+        $this->load->view('register/success');
+    }
+    public function active(){
+        $id=$this->input->get('code');
+        $this->load->model('Muser');
+        $this->Muser->active($id);
+        $this->load->view('home/active');
     }
 }
